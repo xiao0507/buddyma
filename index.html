@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ff8fb5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="WorkBuddy">
+  <title>WorkBuddy · 工作智能助手</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-decor" aria-hidden="true">
+    <span class="sun"></span>
+    <span class="cloud c1"></span>
+    <span class="cloud c2"></span>
+    <span class="star s1"></span>
+    <span class="star s2"></span>
+    <span class="star s3"></span>
+  </div>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">WB</div>
+      <div class="header-text">
+        <h1>WorkBuddy <span class="badge-mini">工作智能助手</span></h1>
+        <p>文档精读 · 任务拆解 · 创作生成，一站式搞定</p>
+      </div>
+      <button class="install-btn" id="installBtn" title="安装到主屏幕">📲 安装</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 顶部 Tab -->
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" data-target="panel-work" role="tab">🧰 任务工作台</button>
+      <button class="tab-btn" data-target="panel-read" role="tab">📚 文档精读</button>
+      <button class="tab-btn" data-target="panel-plan" role="tab">🧩 任务拆解</button>
+    </nav>
+
+    <!-- ============ 任务工作台 ============ -->
+    <section class="tab-panel active" id="panel-work">
+      <div class="card">
+        <h3>选择任务类型</h3>
+        <div class="task-types" id="taskTypeWrap"></div>
+        <input type="hidden" id="taskType" value="lesson">
+      </div>
+
+      <div class="card" id="taskConfig">
+        <h3>填写需求</h3>
+
+        <!-- 教案配置 -->
+        <div id="lessonExtra">
+          <div class="form-grid">
+            <label class="field">
+              <span>年龄段</span>
+              <select id="ageSelect">
+                <option value="small">小班（3-4岁）</option>
+                <option value="middle">中班（4-5岁）</option>
+                <option value="big" selected>大班（5-6岁）</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>领域</span>
+              <select id="domainSelect">
+                <option value="health">健康</option>
+                <option value="language">语言</option>
+                <option value="social">社会</option>
+                <option value="science" selected>科学</option>
+                <option value="art">艺术</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>主题</span>
+              <input type="text" id="themeInput" placeholder="例如：有趣的影子">
+            </label>
+            <label class="field">
+              <span>用途</span>
+              <select id="purposeSelect">
+                <option value="normal">日常教研</option>
+                <option value="contest">比赛备赛</option>
+                <option value="exam">教资考试</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- 通用配置 -->
+        <div id="planExtra" style="display:none">
+          <div class="form-grid">
+            <label class="field">
+              <span>主题 / 标题</span>
+              <input type="text" id="planTheme" placeholder="例如：春季亲子运动会">
+            </label>
+            <label class="field">
+              <span>类型 / 用途</span>
+              <select id="planTypeName">
+                <option value="活动">活动方案</option>
+                <option value="项目">项目方案</option>
+                <option value="会议">会议方案</option>
+                <option value="推广">推广方案</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>时间</span>
+              <input type="text" id="planWhen" placeholder="例如：2026年5月上旬">
+            </label>
+            <label class="field">
+              <span>地点</span>
+              <input type="text" id="planWhere" placeholder="例如：园操场">
+            </label>
+            <label class="field">
+              <span>对象</span>
+              <input type="text" id="planWho" placeholder="例如：全体幼儿及家长">
+            </label>
+            <label class="field">
+              <span>总结周期</span>
+              <input type="text" id="planPeriod" placeholder="例如：2026年第一季度">
+            </label>
+            <label class="field">
+              <span>总结范围</span>
+              <input type="text" id="planScope" placeholder="例如：教学管理各项工作">
+            </label>
+            <label class="field">
+              <span>总结亮点</span>
+              <input type="text" id="planHighlights" placeholder="例如：教研活动与课程建设">
+            </label>
+            <label class="field">
+              <span>听众</span>
+              <input type="text" id="planAudience" placeholder="例如：各位领导、老师">
+            </label>
+            <label class="field">
+              <span>文案类型</span>
+              <select id="articleType">
+                <option value="宣传文案">宣传文案</option>
+                <option value="公众号推文">公众号推文</option>
+                <option value="演讲稿">演讲稿</option>
+                <option value="新闻稿">新闻稿</option>
+              </select>
+            </label>
+            <label class="field" style="display:none">
+              <span>表格标题</span>
+              <input type="text" id="tableTitle" placeholder="工作计划表">
+            </label>
+            <label class="field" style="display:none">
+              <span>表格列</span>
+              <input type="text" id="tableCols" placeholder="序号,事项,负责人,时间,完成标准">
+            </label>
+            <label class="field" style="display:none">
+              <span>表格行</span>
+              <input type="text" id="tableRows" placeholder="1,任务一,张三,第1周,完成初稿;2,任务二,李四,第2周,审核定稿">
+            </label>
+            <label class="field">
+              <span>拆解目标</span>
+              <input type="text" id="planRaw2" placeholder="例如：组织一次全园亲子运动会">
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="generateBtn">生成教案 + 说课稿 + PPT脚本</button>
+          <button class="btn ghost" id="demoBtn">✨ 填入示例</button>
+        </div>
+      </div>
+
+      <div class="card result" id="resultArea" style="display:none">
+        <h3>✨ 生成结果</h3>
+      </div>
+    </section>
+
+    <!-- ============ 文档精读 ============ -->
+    <section class="tab-panel" id="panel-read">
+      <div class="card">
+        <h3>上传文档（本地解析，不上传服务器）</h3>
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-icon">📄</div>
+          <p><b>点击选择或拖拽文件到这里</b></p>
+          <p class="muted">支持 PDF / Word（.docx）/ TXT / Markdown</p>
+        </div>
+        <input type="file" id="docFile" accept=".pdf,.docx,.doc,.txt,.md" style="display:none">
+        <div class="doc-file-info" id="docFileName">未选择文件</div>
+        <div class="doc-file-type" id="docFileType"></div>
+      </div>
+
+      <div class="card">
+        <h3>或粘贴长文本</h3>
+        <textarea id="docText" rows="8" placeholder="把网页内容、文献、长文本粘贴到这里，点击下方按钮进行精读……"></textarea>
+        <div class="btn-row">
+          <button class="btn primary" id="analyzeBtn">🔍 精读分析</button>
+        </div>
+      </div>
+
+      <div class="card result" id="docResult" style="display:none">
+        <h3>📖 精读结果</h3>
+      </div>
+    </section>
+
+    <!-- ============ 任务拆解 ============ -->
+    <section class="tab-panel" id="panel-plan">
+      <div class="card">
+        <h3>复杂任务拆成步骤</h3>
+        <label class="field">
+          <span>任务目标</span>
+          <textarea id="planRaw" rows="3" placeholder="例如：举办一次全园家长开放日活动"></textarea>
+        </label>
+        <label class="field">
+          <span>补充说明（可选）</span>
+          <input type="text" id="planExtraInput" placeholder="例如：需要安全预案，200人参加">
+        </label>
+        <div class="btn-row">
+          <button class="btn primary" id="planBtn">🧩 拆解任务</button>
+        </div>
+      </div>
+
+      <div class="card result" id="planResult" style="display:none">
+        <h3>📋 拆解结果</h3>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>WorkBuddy · 纯本地运行，无需 API Key · 支持 GitHub Pages / 手机添加到主屏幕</p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/lib/pdf.min.js"></script>
+  <script src="js/lib/pdf.worker.min.js"></script>
+  <script src="js/lib/mammoth.browser.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/reader.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
